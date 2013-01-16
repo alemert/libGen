@@ -102,10 +102,6 @@ int startChild( const char *prg, char *stdOutFile,
 
   pid = fork() ;
 
-  #ifdef __TDD__
-    printf("%s(%d)pid=%d\n",__FILE__,__LINE__,pid);
-  #endif
-
   switch( pid )
   {
     // -----------------------------------------------------
@@ -214,9 +210,6 @@ int startChild( const char *prg, char *stdOutFile,
       break ;                                       // break out switch: case
   }
 
-  #ifdef __TDD__
-    printf("%s(%d) rc=%d\n",__FILE__,__LINE__,childRc);
-  #endif
 _door :
 
   fclose( stdOutFp ) ;
