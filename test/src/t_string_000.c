@@ -388,11 +388,13 @@ int main(int argc, const char** argv )
     sysRc = 1 ;
     goto _door ;
   }
-  okTestStep( "flash log line err case" ) ;
+
+  okTestStep( "flash log line ok case" ) ;
 
   // -------------------------------------------------------
   startTestStep( "flash log line err case" ) ;
 
+  //                 2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000
   #define LOG_STR_4 "2012-07-13 21:25:41        00100 SYS starting t"
   #define LOG_CMP_4 "                           00100 SYS starting t"
 
@@ -403,6 +405,8 @@ int main(int argc, const char** argv )
     errTestStep( "flash log line err case" ) ;
     goto _door ;
   }
+  sysRc = 0 ;
+
   if( memcmp(line, LOG_CMP_4, sizeof(LOG_CMP_4) ) != 0 )
   {
     errTestStep( "flash log line err case" ) ;

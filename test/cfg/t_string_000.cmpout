@@ -39,6 +39,6 @@
 # testing	flash log line err case	in test/src/t_string_000.c line 352
 # tested ok	flash log line err case	in test/src/t_string_000.c line 370
 # testing	flash log line ok case	in test/src/t_string_000.c line 373
-# tested ok	flash log line err case	in test/src/t_string_000.c line 391
-# testing	flash log line err case	in test/src/t_string_000.c line 394
-# tested ok	flash log line err case	in test/src/t_string_000.c line 412
+# tested ok	flash log line ok case	in test/src/t_string_000.c line 392
+# testing	flash log line err case	in test/src/t_string_000.c line 395
+# tested ok	flash log line err case	in test/src/t_string_000.c line 416
