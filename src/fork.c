@@ -102,6 +102,10 @@ int startChild( const char *prg, char *stdOutFile,
 
   pid = fork() ;
 
+  #ifdef __TDD__
+    printf("%s(%d)pid=%d\n",__FILE__,__LINE__,pid);
+  #endif
+
   switch( pid )
   {
     // -----------------------------------------------------
@@ -151,7 +155,6 @@ int startChild( const char *prg, char *stdOutFile,
       close( CHILD_2_PARENT_ERR_WRITE ) ;  //   not needed by parent
       close( PARENT_2_CHILD_STD_READ  ) ;  //
                                            //
-
       // ---------------------------------------------------
       // open files
       // ---------------------------------------------------
@@ -211,6 +214,9 @@ int startChild( const char *prg, char *stdOutFile,
       break ;                                       // break out switch: case
   }
 
+  #ifdef __TDD__
+    printf("%s(%d) rc=%d\n",__FILE__,__LINE__,childRc);
+  #endif
 _door :
 
   fclose( stdOutFp ) ;
