@@ -37,8 +37,12 @@
 # testing	flash log line ok case	in test/src/t_string_000.c line 331
 # tested ok	flash log line ok case	in test/src/t_string_000.c line 349
 # testing	flash log line err case	in test/src/t_string_000.c line 352
-# tested ok	flash log line err case	in test/src/t_string_000.c line 370
-# testing	flash log line ok case	in test/src/t_string_000.c line 373
-# tested ok	flash log line ok case	in test/src/t_string_000.c line 392
-# testing	flash log line err case	in test/src/t_string_000.c line 395
-# tested ok	flash log line err case	in test/src/t_string_000.c line 416
+# tested ok	flash log line err case	in test/src/t_string_000.c line 371
+# testing	flash log line ok case	in test/src/t_string_000.c line 374
+# tested ok	flash log line ok case	in test/src/t_string_000.c line 393
+# testing	flash log line err case no pid	in test/src/t_string_000.c line 396
+# tested ok	flash log line err case no pid	in test/src/t_string_000.c line 417
+# testing	flash log line err case no blank after pid	in test/src/t_string_000.c line 420
+# tested ok	flash log line err case no blank after pid	in test/src/t_string_000.c line 434
+# testing	flash log line check log id	in test/src/t_string_000.c line 437
+# tested ok	flash log line check log id	in test/src/t_string_000.c line 450

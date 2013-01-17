@@ -361,6 +361,7 @@ int main(int argc, const char** argv )
     errTestStep( "flash log line err case" ) ;
     goto _door ; 
   }
+  sysRc = 0 ;
   if( memcmp(line, LOG_CMP_2, sizeof(LOG_CMP_2) ) == 0 )
   {
     errTestStep( "flash log line err case" ) ;
@@ -392,7 +393,7 @@ int main(int argc, const char** argv )
   okTestStep( "flash log line ok case" ) ;
 
   // -------------------------------------------------------
-  startTestStep( "flash log line err case" ) ;
+  startTestStep( "flash log line err case no pid" ) ;
 
   //                 2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000
   #define LOG_STR_4 "2012-07-13 21:25:41        00100 SYS starting t"
@@ -413,7 +414,40 @@ int main(int argc, const char** argv )
     sysRc = 1 ;
     goto _door ;
   }
-  okTestStep( "flash log line err case" ) ;
+  okTestStep( "flash log line err case no pid" ) ;
+
+  // -------------------------------------------------------
+  startTestStep( "flash log line err case no blank after pid" ) ;
+
+  //                 2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000
+  #define LOG_STR_5 "2019-07-13 21:25:41  11038x00100 SYS starting t"
+  #define LOG_CMP_5 "                           00100 SYS starting t"
+
+  memcpy( line, LOG_STR_5 , sizeof(LOG_STR_5) ) ;
+  sysRc = flashLogLine(line) ;
+  if( sysRc == 0 )
+  {
+    errTestStep( "flash log line err case no blank after pid" ) ;
+    goto _door ;
+  }
+  sysRc = 0 ;
+  okTestStep( "flash log line err case no blank after pid" ) ;
+
+  // -------------------------------------------------------
+  startTestStep( "flash log line check log id" );
+
+  //                 2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000
+  #define LOG_STR_6 "2019-07-13 21:25:41  11038 00100 SYS starting t"
+  #define LOG_CMP_6 "                           00100 SYS starting t"
+
+  memcpy( line, LOG_STR_6 , sizeof(LOG_STR_6) ) ;
+  sysRc = flashLogLine(line) ;
+  if( sysRc == 1 )
+  {
+    errTestStep( "flash log line check log id" );
+    goto _door ;
+  }
+  okTestStep( "flash log line check log id" );
 
 _door :
   return sysRc ;

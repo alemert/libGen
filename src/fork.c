@@ -82,21 +82,21 @@ int startChild( const char *prg, char *stdOutFile,
   if( pipe( stdOut ) )
   {                        //
     errRc = errno  ;       // error handling
-    perror("pipe") ;       // no automatic test for pipe()
+    perror("pipe "__FILE__) ;       // no automatic test for pipe()
     goto _door     ;       // quit function with errno
   }
 
   if( pipe( stdErr ) )
   {                        //
     errRc = errno  ;       // error handling
-    perror("pipe") ;       // no automatic test for pipe()
+    perror("pipe "__FILE__) ;       // no automatic test for pipe()
     goto _door     ;       // quit function with errno
   }
 
   if( pipe( stdIn ) )
   {                        //
     errRc = errno  ;       // error handling
-    perror("pipe") ;       // no automatic test for pipe()
+    perror("pipe "__FILE__) ;       // no automatic test for pipe()
     goto _door     ;       // quit function with errno
   }
 
@@ -109,7 +109,7 @@ int startChild( const char *prg, char *stdOutFile,
     // -----------------------------------------------------
     case -1 :
       errRc = errno ;
-      perror("fork");
+      perror("fork "__FILE__);
       break ;
 
     // -----------------------------------------------------

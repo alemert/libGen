@@ -4,9 +4,9 @@
 /*   functions:                                                               */
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
-/*      - flashLogLine                                  */
+/*      - flashLogLine                                                        */
 /*      - diff                                                                */
-/*      - diffLog                                                   */
+/*      - diffLog                                                             */
 /*                                                                            */
 /******************************************************************************/
 
@@ -48,7 +48,7 @@
 /* count words                                                                */
 /*                                                                            */
 /* description:                                                               */
-/*   count whithe space terminated words in a string      */
+/*   count whithe space terminated words in a string                          */
 /*   if maxOffset == 0 -> no checking of buffer overflow                      */
 /*                                                                            */
 /* return code:                                                               */
@@ -232,7 +232,11 @@ _door :
 }
 
 /******************************************************************************/
-/* flash log file line           */
+/* flash log file line                                                        */
+/*                                                                            */
+/*  0         1         2         3                                           */
+/*  0123456789 123456789 123456789 123456789 123456789 123456789              */
+/* "2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000                   */
 /******************************************************************************/
 int flashLogLine( char* line) 
 {
@@ -267,7 +271,7 @@ int flashLogLine( char* line)
     if( !isdigit( line[i] ) ) goto _door ;   //
     line[i] = ' ' ;                          //
   }                                          //
-  if( line[13] != ':' )  goto _door ;        // blank
+  if( line[13] != ':' )  goto _door ;        // :
   line[13] = ' ' ;                           //
                                              //
   for(i=14;i<16;i++)                         // mm
@@ -275,7 +279,7 @@ int flashLogLine( char* line)
     if( !isdigit( line[i] ) ) goto _door ;   //
     line[i] = ' ' ;                          //
   }                                          //
-  if( line[16] != ':' )  goto _door ;        // blank
+  if( line[16] != ':' )  goto _door ;        // :
   line[16] = ' ' ;                           //
                                              //
   for(i=17;i<19;i++)                         // ss
@@ -296,7 +300,18 @@ int flashLogLine( char* line)
     line[i] = ' ' ;                          //
   }                                          //
                                              //
-  sysRc = 0 ;
+  if( line[26] != ' ' )  goto _door ;        // blank
+                                             //
+  #if(0)                                     // all fourther chars have to 
+  for(;i<32;i++)                             //   be equal
+  {                                          //
+    if( !isdigit( line[i] ) ) goto _door ;   //
+    line[i] = ' ' ;                          //
+  }                                          //
+  #endif                                     //
+                                             //
+  sysRc = 0 ;                                //
+                                             //
   _door :
 
   return sysRc ;
