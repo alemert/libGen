@@ -1,0 +1,10 @@
+# testing	testing diff empty	in test/src/t_string_001.c line 40
+# tested ok	testing diff empty	in test/src/t_string_001.c line 47
+# testing	testing diff no file 1	in test/src/t_string_001.c line 52
+# tested ok	testing diff no file 1	in test/src/t_string_001.c line 59
+# testing	testing diff no file 2	in test/src/t_string_001.c line 65
+# tested ok	testing diff no file 2	in test/src/t_string_001.c line 72
+# testing	testing diff ok 	in test/src/t_string_001.c line 78
+# tested ok	testing diff ok 	in test/src/t_string_001.c line 85
+# testing	testing diff on diffrent files	in test/src/t_string_001.c line 91
+# tested ok	testing diff on diffrent files	in test/src/t_string_001.c line 98

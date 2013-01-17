@@ -325,8 +325,8 @@ int diff( const char* file1, const char* file2 )
 {
   int errRc = NO_ERROR ;              // buffer for errno
                                       //
-  FILE *fp1 ;                         // 1st file pointer
-  FILE *fp2 ;                         // 2nd file pointer
+  FILE *fp1 = NULL ;                         // 1st file pointer
+  FILE *fp2 = NULL ;                         // 2nd file pointer
                                       //
   char buff1[1024] ;                  // read buffer for the 1st file
   char buff2[1024] ;                  // read buffer for the 2nd file
@@ -368,8 +368,8 @@ int diff( const char* file1, const char* file2 )
   }                                   //
                                       //
 _door :
-  fclose( fp1 ) ;
-  fclose( fp2 ) ;
+  if( fp1 != NULL ) fclose( fp1 ) ;
+  if( fp2 != NULL ) fclose( fp2 ) ;
 
   return errRc ;
 }
