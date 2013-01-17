@@ -50,7 +50,8 @@ int diffLog( const char* lFile, const char* cFile ) ;
 // ---------------------------------------------------------
 // fork.c
 // ---------------------------------------------------------
-int startChild( const char *prg, char *stdOutFile,
-                                 char *stdErrFile,
-                                 char **cmdLn    ) ;
+int startChild( const char *prg, FILE *stdOutFp ,
+                                 FILE *stdErrFp ,
+                                 char **cmdLn   ) ;
+
 

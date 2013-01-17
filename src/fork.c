@@ -43,9 +43,9 @@
 /******************************************************************************/
 /*   fork and exec process                                                    */
 /******************************************************************************/
-int startChild( const char *prg, char *stdOutFile,
-                                 char *stdErrFile,
-                                 char **cmdLn    )
+int startChild( const char *prg, FILE *stdOutFp ,
+                                 FILE *stdErrFp ,
+                                 char **cmdLn   )
 {
   int errRc   = NO_ERROR ;  // buffer for errno
   int childRc = NO_ERROR ;  // exit code of child process
@@ -58,8 +58,8 @@ int startChild( const char *prg, char *stdOutFile,
   int stdOutRc  ;    // rc for reading from stdout
   int stdErrRc  ;    // rc for reading from stderr
 
-  FILE *stdOutFp ;
-  FILE *stdErrFp ;
+//FILE *stdOutFp ;
+//FILE *stdErrFp ;
 
   #define PIPE_BUFF_LEN   128
 
@@ -154,21 +154,23 @@ int startChild( const char *prg, char *stdOutFile,
       // ---------------------------------------------------
       // open files
       // ---------------------------------------------------
-      stdOutFp = fopen( stdOutFile, "w" ) ;
-      if( stdOutFp == NULL )
-      {
-        errRc = errno  ;       // error handling
-        perror( stdOutFile ) ; //
-        goto _door     ;       // quit function with errno
-      }
+      if( stdOutFp == NULL ) stdOutFp = stdout ;
+//    stdOutFp = fopen( stdOutFile, "w" ) ;
+//    if( stdOutFp == NULL )
+//    {
+//      errRc = errno  ;       // error handling
+//      perror( stdOutFile ) ; //
+//      goto _door     ;       // quit function with errno
+//    }
  
-      stdErrFp = fopen( stdErrFile, "w" ) ;
-      if( stdErrFp == NULL )
-      {
-        errRc = errno  ;       // error handling
-        perror( stdErrFile ) ; //
-        goto _door     ;       // quit function with errno
-      }
+      if( stdErrFp == NULL ) stdErrFp = stderr ;
+//    stdErrFp = fopen( stdErrFile, "w" ) ;
+//    if( stdErrFp == NULL )
+//    {
+//      errRc = errno  ;       // error handling
+//      perror( stdErrFile ) ; //
+//      goto _door     ;       // quit function with errno
+//    }
 
       // ---------------------------------------------------
       // loop until child is running
