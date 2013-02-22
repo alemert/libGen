@@ -41,6 +41,10 @@ int main(int argc, const char** argv )
   // -------------------------------------------------------
   // forking process
   // -------------------------------------------------------
+  char *cmdLn[] = { "test/cfg/texit", NULL } ;
+
+  sysRc = startChild( cmdLn[0], stdout, stderr, cmdLn ) ;
+
 #if(1)
   startTestStep( "start child " );
   // startChild( ) is tested by tutl it self

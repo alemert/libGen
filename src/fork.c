@@ -110,7 +110,7 @@ int startChild( const char *prg, FILE *stdOutFp ,
     case -1 :
       errRc = errno ;
       perror("fork "__FILE__);
-      break ;
+      goto _door ;
 
     // -----------------------------------------------------
     // process is a child
@@ -207,9 +207,13 @@ int startChild( const char *prg, FILE *stdOutFp ,
         }                                           //
       }                                             //
                                                     //
+  int a = WIFEXITED( childRc ) ;
+  int b = WEXITSTATUS( childRc ) ;
+    #if(0)
       childRc >>=   8 ;                             // get exit code from child
       childRc &=  127 ;                             //
       break ;                                       // break out switch: case
+    #endif
   }
 
 _door :
