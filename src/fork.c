@@ -47,6 +47,7 @@ int startChild( const char *prg, FILE *stdOutFp ,
                                  FILE *stdErrFp ,
                                  char **cmdLn   )
 {
+  int sysRc   = NO_ERROR ;  // general rc
   int errRc   = NO_ERROR ;  // buffer for errno
   int childRc = NO_ERROR ;  // exit code of child process
                             //
@@ -207,21 +208,29 @@ int startChild( const char *prg, FILE *stdOutFp ,
         }                                           //
       }                                             //
                                                     //
-  int a = WIFEXITED( childRc ) ;
-  int b = WEXITSTATUS( childRc ) ;
-    #if(0)
+    #if(0)                                          //
       childRc >>=   8 ;                             // get exit code from child
       childRc &=  127 ;                             //
       break ;                                       // break out switch: case
-    #endif
-  }
-
+    #else                                           //
+      if( WIFEXITED( childRc ) )                    //
+      {                                             //
+        sysRc = WEXITSTATUS( childRc ) ;            //
+      }                                             //
+      else                                          //
+      {                                             //
+        sysRc = 1  ;                                //
+        goto _door ;                                //
+      }                                             //
+    #endif                                          //
+  }                                                 //
+  if( sysRc == 0 ) sysRc = errRc ;                  //
+                                                    //
 _door :
 
   fclose( stdOutFp ) ;
   fclose( stdErrFp ) ;
 
-  if( childRc > 0 ) return childRc ;
-  return errRc ;
+  return sysRc ;
 }
  
