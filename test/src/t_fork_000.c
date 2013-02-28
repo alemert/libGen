@@ -41,12 +41,12 @@ int main(int argc, const char** argv )
   // -------------------------------------------------------
   // forking process
   // -------------------------------------------------------
-  char *cmdLn[] = { "test/cfg/texit", NULL } ;
+//char *cmdLn[] = { "test/cfg/texit", NULL } ;
 
-  sysRc = startChild( cmdLn[0], stdout, stderr, cmdLn ) ;
 
 #if(1)
   startTestStep( "start child " );
+//sysRc = startChild( cmdLn[0], stdout, stderr, cmdLn ) ;
   // startChild( ) is tested by tutl it self
   okTestStep( "start child " );
   goto _door ;
