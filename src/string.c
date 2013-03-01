@@ -438,8 +438,8 @@ int diffLog( const char* lFile, const char* cFile )
   }                                   //
                                       //
 _door :
-  fclose( lFP ) ;
-  fclose( cFP ) ;
+  if( cFP != NULL ) fclose( cFP ) ;
+  if( lFP != NULL ) fclose( lFP ) ;
 
   return errRc ;
 }
