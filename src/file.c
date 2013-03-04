@@ -3,6 +3,8 @@
 /*                                                                            */
 /*  functions:                                                                */
 /*    - checkFileRights                                                       */
+/*    - fileSize                                                              */
+/*    - flushFile                                                             */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,6 +16,8 @@
 // system
 // ---------------------------------------------------------
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 // ---------------------------------------------------------
 // own 
@@ -53,6 +57,33 @@ int checkFileRights( const char* fName, int mode )
 _door:
 
   return errRc ;
+}
+
+/******************************************************************************/
+/*   file size                                                                */
+/*                                                                            */
+/*   return code:                                                             */
+/*     size of the file if ok                                                 */
+/*     -errno if error (negativ errno)                                        */
+/******************************************************************************/
+long fileSize( const char* fName )
+{
+  int sysRc ;
+  struct stat fAttr ;
+
+  sysRc = stat( fName, &fAttr ) ;
+
+  if( sysRc != 0 )
+  {
+    sysRc = errno ;
+    goto _door ;
+  }
+
+  return (long) fAttr.st_size ;
+
+_door : 
+  return -sysRc ;
+
 }
 
 /******************************************************************************/

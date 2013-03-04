@@ -46,6 +46,7 @@
 // file.c
 // ---------------------------------------------------------
 int checkFileRights( const char* fName, int mode ) ;
+long fileSize(       const char* fName           ) ;
 int flushFile(       const char* fName           ) ;
 
 // ---------------------------------------------------------
