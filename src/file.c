@@ -55,4 +55,37 @@ _door:
   return errRc ;
 }
 
+/******************************************************************************/
+/* flus the file                                                              */
+/*                                                                            */
+/*   equal to >>fileName                                                      */
+/******************************************************************************/
+int flushFile( const char* fName ) 
+{
+  int sysRc ;
+  FILE  *fp ;
 
+  sysRc = checkFileWrite( fName ) ;  // check if file can be rewriten
+  if( sysRc != 0 )                   // if not return errno from func
+  {                              //
+    sysRc = errno ;            //
+    goto _door ;                  //
+  }                              //
+                                     //
+  fp = fopen( fName, "w" ) ;         // open file 
+  if( fp == NULL )                   // if error return errno from func
+  {                                  //
+    sysRc = errno ;                  //
+    goto _door ;                     //
+  }                                  //
+                                     //
+  sysRc = fclose( fp ) ;             // close file, (file is flushed)
+  if( sysRc != 0 )                   // if err return errno form func
+  {                                  //
+    sysRc = errno ;                  //
+    goto _door ;                     //
+  }                                  //
+                                     //
+_door :
+  return sysRc ;
+}

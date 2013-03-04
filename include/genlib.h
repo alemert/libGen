@@ -24,9 +24,18 @@
 /******************************************************************************/
 /*   M A C R O S                                                              */
 /******************************************************************************/
-#define checkFileRead( fName ) checkFileRights( fName, R_OK ) ;
-#define checkFileExec( fName ) checkFileRights( fName, X_OK ) ;
 
+// ---------------------------------------------------------
+// strint.c
+// ---------------------------------------------------------
+#define checkFileRead(  fName ) checkFileRights( fName, R_OK ) ;
+#define checkFileWrite( fName ) checkFileRights( fName, W_OK ) ;
+#define checkFileExec(  fName ) checkFileRights( fName, X_OK ) ;
+#define checkFileDir(   fName ) checkFileRights( fName, F_OK ) ;
+
+// ---------------------------------------------------------
+// general macros
+// ---------------------------------------------------------
 #define errmsg( str ) { errRc=errno ; perror( str ) ;  goto _door ; }
 
 /******************************************************************************/
@@ -37,6 +46,7 @@
 // file.c
 // ---------------------------------------------------------
 int checkFileRights( const char* fName, int mode ) ;
+int flushFile(       const char* fName           ) ;
 
 // ---------------------------------------------------------
 // string.c

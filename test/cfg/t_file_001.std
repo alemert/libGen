@@ -1,0 +1,2 @@
+# TEST START flushFile  >>file does not exists<< test/src/t_file_001.c(0045)
+# TEST OK    flushFile  >>file does not exists<< test/src/t_file_001.c(0045)
