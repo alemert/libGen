@@ -39,11 +39,11 @@ int main( int argc, const char** argv )
   // -------------------------------------------------------
   // flush not existing file
   // -------------------------------------------------------
-#if(0)
+#if(1)
   doIntTest( "file does not exists"    , \
-          2                            , \
+          22                            , \
           flushFile                    , \
-          "/not.exists"           ) ;
+          "test/cfg/not.exists"           ) ;
 #endif
 
   // -------------------------------------------------------
@@ -59,7 +59,7 @@ int main( int argc, const char** argv )
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
-#if(0)
+#if(1)
   doIntTest( "file can not be open for writing"  , \
           13                                     , \
           flushFile                              , \
@@ -69,7 +69,7 @@ int main( int argc, const char** argv )
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
-#if(0)
+#if(1)
   doIntTest( "file flushed ok"      , \
           0                         , \
           flushFile                 , \
