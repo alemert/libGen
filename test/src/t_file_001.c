@@ -1,7 +1,7 @@
 /******************************************************************************/
 /* test c source template                                                     */
 /*                                                                            */
-/* testing file : file.c            */
+/* testing file : file.c                  */
 /*                                                                            */
 /* testing functions : flusFile                                               */
 /*                                                                            */
@@ -50,20 +50,20 @@ int main( int argc, const char** argv )
   // flush no writing rights file
   // -------------------------------------------------------
 #if(1)
-  doIntTest( "file does not have writing rights" , \
-          13                                     , \
-          flushFile                              , \
-          "test/cfg/no_writting.right"           ) ;
+  doIntTest( "no writing rights on file" , \
+          13                             , \
+          flushFile                      , \
+          "test/cfg/no_writting.right"   ) ;
 #endif
 
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
 #if(1)
-  doIntTest( "file can not be open for writing"  , \
-          13                                     , \
-          flushFile                              , \
-          "test/cfg/no_writing.dir"             ) ;
+  doIntTest( "open file for writing failed"  , \
+          13                                 , \
+          flushFile                          , \
+          "test/cfg/no_writing.dir"          ) ;
 #endif
 
   // -------------------------------------------------------
