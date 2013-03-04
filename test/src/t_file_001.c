@@ -39,34 +39,42 @@ int main( int argc, const char** argv )
   // -------------------------------------------------------
   // flush not existing file
   // -------------------------------------------------------
+#if(0)
   doIntTest( "file does not exists"    , \
           2                            , \
           flushFile                    , \
-          "/file/not.exists"           ) ;
+          "/not.exists"           ) ;
+#endif
 
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
+#if(1)
   doIntTest( "file does not have writing rights" , \
           13                                     , \
           flushFile                              , \
           "test/cfg/no_writting.right"           ) ;
+#endif
 
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
+#if(0)
   doIntTest( "file can not be open for writing"  , \
           13                                     , \
           flushFile                              , \
           "test/cfg/no_writing.dir"             ) ;
+#endif
 
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
+#if(0)
   doIntTest( "file flushed ok"      , \
           0                         , \
           flushFile                 , \
           "test/cfg/flushed.file"   ) ;
+#endif
 
 _door:
   return sysRc ;

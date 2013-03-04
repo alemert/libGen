@@ -188,6 +188,7 @@ int startChild( const char *prg, FILE *stdOutFp ,
           if( stdOutRc > 0 )                        // if somthing found on pipe
           {                                         //  print it out
             fprintf(stdOutFp,"%.128s",stdOutBuff);  //
+            fflush( stdOutFp ) ;
           }                                         //
                                                     //
           memset( stdErrBuff, '\0', 128 ) ;         // flush pipe buffer
@@ -197,6 +198,7 @@ int startChild( const char *prg, FILE *stdOutFp ,
           if( stdErrRc > 0 )                        // if somthing found on pipe
           {                                         //  print it out
             fprintf(stdErrFp,"%.128s",stdErrBuff);  //
+            fflush( stdErrFp ) ;
           }                                         //
                                                     //
           if( (stdOutRc + stdErrRc) == 0 ) break ;  // if stdout and stderr
