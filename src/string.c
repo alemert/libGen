@@ -7,6 +7,7 @@
 /*      - flashLogLine                                                        */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
+/*      - countChar      */
 /*                                                                            */
 /******************************************************************************/
 
@@ -442,5 +443,24 @@ _door :
   if( lFP != NULL ) fclose( lFP ) ;
 
   return errRc ;
+}
+
+/******************************************************************************/
+/* count char                                      */
+/*                                                      */
+/*   count char c in string mem            */
+/******************************************************************************/
+int countChar( const char* mem, char c )
+{
+  char *p  = (char*) mem ;
+  int  cnt = 0   ;
+
+  while( *p != '\0' )
+  {
+    if( *p == c ) cnt++ ;
+    p++ ;
+  }
+
+  return cnt ;
 }
 
