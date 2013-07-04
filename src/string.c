@@ -5,10 +5,10 @@
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
 /*      - flashLogLineId                                                      */
-/*      - flashLogLineSrc                          */
+/*      - flashLogLineSrc                                      */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
-/*      - countChar                        */
+/*      - countChar                                      */
 /*                                                                            */
 /******************************************************************************/
 
@@ -375,13 +375,12 @@ int flashLogLineSrc( char* line)
   if( line[i] != '/' ) goto _door ; i++ ;  //
                                            //
   loop = 1 ;                               //
-  while( 1 )                               // check for the 
+  while( loop )                            // check for the 
   {                                        //  base source file name
     switch( line[i] )                      //
     {                                      //
       case ' '  :                          // a function name ends with ()
       {                                    //
-        line[i] = ' ' ;                    //
         i++ ;                              //
         loop = 0 ;                         //
         break ;                            //
@@ -409,7 +408,11 @@ int flashLogLineSrc( char* line)
   if( !isdigit(line[i]) ) goto _door ;     //
   i++ ;                                    //
                                            //
-  while( !isdigit( line[i] ) ) i++ ;       //
+  while( !isdigit( line[i] ) )             //
+  {                                        //
+    line[i] = ' ' ;                        //
+    i++ ;                                  //
+  }                                        //
                                            //
   if( line[i] != ')' ) goto _door ;        // "(line: "
                                            //
