@@ -4,10 +4,11 @@
 /*   functions:                                                               */
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
-/*      - flashLogLine                                                        */
+/*      - flashLogLineId                                                      */
+/*      - flashLogLineSrc            */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
-/*      - countChar      */
+/*      - countChar                    */
 /*                                                                            */
 /******************************************************************************/
 
@@ -233,13 +234,16 @@ _door :
 }
 
 /******************************************************************************/
-/* flash log file line                                                        */
+/* flash log file line id                                                     */
 /*                                                                            */
 /*  0         1         2         3                                           */
 /*  0123456789 123456789 123456789 123456789 123456789 123456789              */
 /* "2013-01-15 14:49:27  30178 00100 SYS starting t_ctl_000                   */
+/*                                                                            */
+/* description:                                                               */
+/*    flash log line with id                                                  */
 /******************************************************************************/
-int flashLogLine( char* line) 
+int flashLogLineId( char* line) 
 {
   int sysRc = 1 ;
   int i ;
@@ -313,6 +317,98 @@ int flashLogLine( char* line)
                                              //
   sysRc = 0 ;                                //
                                              //
+  _door :
+
+  return sysRc ;
+}
+
+/******************************************************************************/
+/* flash log file line source                                                 */
+/*                        */
+/* description:            */
+/*   check for a log file matching /^\s{37}func() in src/name.t (line \d+)$/  */
+/* return code:      */
+/******************************************************************************/
+int flashLogLineSrc( char* line) 
+{
+  int sysRc = 1 ;
+  int i ;
+
+  for( i=0; i<37; i++ )                    // check for blanks at start 
+  {                                        //   of the line
+    if( line[i] != ' ' ) goto _door ;      //
+  }                                        //
+                                           //
+  while( 1 )                               // check for the function name
+  {                                        //
+    switch( line[i] )                      //
+    {                                      //
+      case '('  :                          // a function name ends with ()
+      {                                    //
+        line[i] = ' ' ;                    //
+        break ;                            //
+      }                                    //
+      case ' '  : goto _door ;             // chars not possible in a func name
+      case '\n' : goto _door ;             //
+      case '\0' : goto _door ;             //
+      default :                            //
+      {                                    //
+        i++ ;                              //
+        continue ;                         //
+      }                                    //
+    }                                      //
+  }                                        //
+  i++ ;                                    //
+                                           //
+  if( line[i] != ')' ) goto _door ; i++ ;  // end of function name
+  if( line[i] != ' ' ) goto _door ; i++ ;  // " in src/"
+  if( line[i] != 'i' ) goto _door ; i++ ;  //
+  if( line[i] != 'n' ) goto _door ; i++ ;  //
+  if( line[i] != ' ' ) goto _door ; i++ ;  //
+  if( line[i] != 's' ) goto _door ; i++ ;  //
+  if( line[i] != 'r' ) goto _door ; i++ ;  //
+  if( line[i] != 'c' ) goto _door ; i++ ;  //
+  if( line[i] != '/' ) goto _door ; i++ ;  //
+                                           //
+  while( 1 )                               // check for the 
+  {                                        //  base source file name
+    switch( line[i] )                      //
+    {                                      //
+      case ' '  :                          // a function name ends with ()
+      {                                    //
+        line[i] = ' ' ;                    //
+        break ;                            //
+      }                                    //
+      case '('  : goto _door ;             // chars not possible in a file name
+      case ')'  : goto _door ;             // 
+      case '\n' : goto _door ;             //
+      case '\0' : goto _door ;             //
+      default :                            //
+      {                                    //
+        i++ ;                              //
+        continue ;                         //
+      }                                    //
+    }                                      //
+  }                                        //
+  i++ ;                                    //
+                                           //
+  if( line[i] != '(' ) goto _door ; i++ ;  // "(line: "
+  if( line[i] != 'l' ) goto _door ; i++ ;  // 
+  if( line[i] != 'i' ) goto _door ; i++ ;  // 
+  if( line[i] != 'n' ) goto _door ; i++ ;  // 
+  if( line[i] != 'e' ) goto _door ; i++ ;  // 
+  if( line[i] != ':' ) goto _door ; i++ ;  // 
+  if( line[i] != ' ' ) goto _door ; i++ ;  // 
+                                           //
+  if( !isdigit(line[i]) ) goto _door ;     //
+  i++ ;                                    //
+                                           //
+  while( !isdigit( line[i] ) ) i++ ;       //
+                                           //
+  if( line[i] != ')' ) goto _door ;        // "(line: "
+                                           //
+  sysRc = 0 ;
+
   _door :
 
   return sysRc ;
@@ -411,7 +507,7 @@ int diffLog( const char* lFile, const char* cFile )
     lType = flashLogLine( lBuff ) ;   // adjust log file format to spaces, 
     cType = flashLogLine( cBuff ) ;   //  get the type of file (log file or not)
                                       //
-    if( lType != cType )              // compaire the type of line in log and 
+    if( lType != cType )              // compare the type of line in log and 
     {                                 //   compaire file, if not same 
       errRc = 3  ;                    //   return error
       goto _door ;                    //
