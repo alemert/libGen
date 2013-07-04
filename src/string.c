@@ -324,30 +324,33 @@ int flashLogLineId( char* line)
 
 /******************************************************************************/
 /* flash log file line source                                                 */
-/*                                          */
-/* description:                          */
+/*                                                                            */
+/* description:                                                               */
 /*   check for a log file matching /^\s{37}func() in src/name.t (line \d+)$/  */
-/* return code:                  */
-/*  0 = type match                                  */
-/*  1 = none matching                                        */
+/* return code:                                                               */
+/*   0 = type match                                                           */
+/*   1 = none matching                                                        */
 /******************************************************************************/
 int flashLogLineSrc( char* line) 
 {
   int sysRc = 1 ;
   int i ;
+  int loop ;
 
   for( i=0; i<37; i++ )                    // check for blanks at start 
   {                                        //   of the line
     if( line[i] != ' ' ) goto _door ;      //
   }                                        //
                                            //
-  while( 1 )                               // check for the function name
+  loop = 1 ;                               //
+  while( loop )                            // check for the function name
   {                                        //
     switch( line[i] )                      //
     {                                      //
       case '('  :                          // a function name ends with ()
       {                                    //
-        line[i] = ' ' ;                    //
+        loop = 0 ;                         //
+        i++ ;                              //
         break ;                            //
       }                                    //
       case ' '  : goto _door ;             // chars not possible in a func name
@@ -360,7 +363,6 @@ int flashLogLineSrc( char* line)
       }                                    //
     }                                      //
   }                                        //
-  i++ ;                                    //
                                            //
   if( line[i] != ')' ) goto _door ; i++ ;  // end of function name
   if( line[i] != ' ' ) goto _door ; i++ ;  // " in src/"
