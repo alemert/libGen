@@ -334,7 +334,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_1 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_1 , sizeof(LOG_STR_1) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 1 )
   {
     errTestStep( "flash log line ok case" ) ;
@@ -355,7 +355,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_2 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_2 , sizeof(LOG_STR_2) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 0 )
   {
     errTestStep( "flash log line err case" ) ;
@@ -377,7 +377,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_3 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_3 , sizeof(LOG_STR_3) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 1 )
   {
     errTestStep( "flash log line ok case" ) ;
@@ -400,7 +400,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_4 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_4 , sizeof(LOG_STR_4) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 0 )
   {
     errTestStep( "flash log line err case" ) ;
@@ -424,7 +424,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_5 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_5 , sizeof(LOG_STR_5) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 0 )
   {
     errTestStep( "flash log line err case no blank after pid" ) ;
@@ -441,7 +441,7 @@ int main(int argc, const char** argv )
   #define LOG_CMP_6 "                           00100 SYS starting t"
 
   memcpy( line, LOG_STR_6 , sizeof(LOG_STR_6) ) ;
-  sysRc = flashLogLine(line) ;
+  sysRc = flashLogLineId(line) ;
   if( sysRc == 1 )
   {
     errTestStep( "flash log line check log id" );

@@ -1,3 +1,4 @@
 001 flushFile added to file.c
 002 fileSize added to file.c
 003 countChar added to string.c
+004 flashLogLineSrc added to string.c

@@ -5,10 +5,10 @@
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
 /*      - flashLogLineId                                                      */
-/*      - flashLogLineSrc            */
+/*      - flashLogLineSrc                          */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
-/*      - countChar                    */
+/*      - countChar                        */
 /*                                                                            */
 /******************************************************************************/
 
@@ -324,10 +324,12 @@ int flashLogLineId( char* line)
 
 /******************************************************************************/
 /* flash log file line source                                                 */
-/*                        */
-/* description:            */
+/*                                          */
+/* description:                          */
 /*   check for a log file matching /^\s{37}func() in src/name.t (line \d+)$/  */
-/* return code:      */
+/* return code:                  */
+/*  0 = type match                                  */
+/*  1 = none matching                                        */
 /******************************************************************************/
 int flashLogLineSrc( char* line) 
 {
@@ -476,64 +478,71 @@ _door :
 /******************************************************************************/
 int diffLog( const char* lFile, const char* cFile )
 {
-  int errRc = NO_ERROR ;              // buffer for errno
-                                      //
-  FILE *lFP ;                         // log file pointer
-  FILE *cFP ;                         // compaire file pointer
-                                      //
-  char lBuff[1024] ;                  // read buffer for the log file
-  char cBuff[1024] ;                  // read buffer for the compaire file
-                                      //
-  char* lRC ;                         // return code for calls on log file
-  char* cRC ;                         // return code for calls on cmp file
-                                      //
-  int lType ;                         // line type in log file (log or normal)
-  int cType ;                         // line type in cmp file (log or normal)
-                                      //
-  lFP = fopen( lFile, "r" ) ;         // 
-  if( lFP == NULL ) errmsg( lFile ) ; //
-                                      //
-  cFP = fopen( cFile, "r" ) ;         //
-  if( cFP == NULL ) errmsg( cFile ) ; //
-                                      //
-  while( 1 )                          //
-  {                                   //
-    lRC = fgets(lBuff,1024,lFP) ;     // read up to 1k from log file
-    cRC = fgets(cBuff,1024,cFP) ;     // read up to 1k from cmp file
-                                      //
-    if( lRC == NULL ) break ;         // eof log file
-    if( cRC == NULL ) break ;         // eof cmp file
-                                      //
-    lType = flashLogLine( lBuff ) ;   // adjust log file format to spaces, 
-    cType = flashLogLine( cBuff ) ;   //  get the type of file (log file or not)
-                                      //
-    if( lType != cType )              // compare the type of line in log and 
-    {                                 //   compaire file, if not same 
-      errRc = 3  ;                    //   return error
-      goto _door ;                    //
-    }                                 //
-                                      //
-    if( strcmp( (const char*) lBuff,  //
-                (const char*) cBuff ) //
-        != 0 )                        //
-    {                                 // compare both buffer
-      errRc = 1  ;                    // if diffrent 
-      goto _door ;                    // return error 1 => files diffrent
-    }                                 //
-  }                                   //
-                                      //
-  if( !feof( lFP ) )                  // if eof(fp2) but not eof(fp1)
-  {                                   //   return erro 2 => diffrent length 
-    errRc = 2  ;                      //                      of files
-    goto _door ;                      //
-  }                                   //
-                                      //
-  if( !feof( cFP ) )                  // if eof(fp2) but not eof(fp1)
-  {                                   //   return erro 2 => diffrent length
-    errRc = 2  ;                      //                      of files
-    goto _door ;                      //
-  }                                   //
-                                      //
+  int errRc = NO_ERROR ;                  // buffer for errno
+                                          //
+  FILE *lFP ;                             // log file pointer
+  FILE *cFP ;                             // compaire file pointer
+                                          //
+  char lBuff[1024] ;                      // read buffer for the log file
+  char cBuff[1024] ;                      // read buffer for the compaire file
+                                          //
+  char* lRC ;                             // return code for calls on log file
+  char* cRC ;                             // return code for calls on cmp file
+                                          //
+  int lTypeId ;                           // line type log file (log or normal)
+  int cTypeId ;                           // line type cmp file (log or normal)
+                                          //
+  int lTypeSrc ;                          // line type log file (log or normal)
+  int cTypeSrc ;                          // line type cmp file (log or normal)
+                                          //
+  lFP = fopen( lFile, "r" ) ;             // 
+  if( lFP == NULL ) errmsg( lFile ) ;     //
+                                          //
+  cFP = fopen( cFile, "r" ) ;             //
+  if( cFP == NULL ) errmsg( cFile ) ;     //
+                                          //
+  while( 1 )                              //
+  {                                       //
+    lRC = fgets(lBuff,1024,lFP) ;         // read up to 1k from log file
+    cRC = fgets(cBuff,1024,cFP) ;         // read up to 1k from cmp file
+                                          //
+    if( lRC == NULL ) break ;             // eof log file
+    if( cRC == NULL ) break ;             // eof cmp file
+                                          //
+    lTypeId = flashLogLineId( lBuff ) ;   // adjust log file format to spaces, 
+    cTypeId = flashLogLineId( cBuff ) ;   //  get the type of file 
+                                          //  (log file or not)
+    lTypeSrc = flashLogLineSrc( lBuff ) ; // adjust log file format to spaces, 
+    cTypeSrc = flashLogLineSrc( cBuff ) ; //  get the type of file 
+                                          //  (log file or not)
+    if( lTypeId  != cTypeId  &&           // compare the type of line in log and 
+        lTypeSrc != cTypeSrc  )           //   compaire file, if not same 
+    {                                     //
+      errRc = 3  ;                        //   return error
+      goto _door ;                        //
+    }                                     //
+                                          //
+    if( strcmp( (const char*) lBuff,      //
+                (const char*) cBuff )     //
+        != 0 )                            //
+    {                                     // compare both buffer
+      errRc = 1  ;                        // if diffrent 
+      goto _door ;                        // return error 1 => files diffrent
+    }                                     //
+  }                                       //
+                                          //
+  if( !feof( lFP ) )                      // if eof(fp2) but not eof(fp1)
+  {                                       //   return erro 2 => diffrent length 
+    errRc = 2  ;                          //                      of files
+    goto _door ;                          //
+  }                                       //
+                                          //
+  if( !feof( cFP ) )                      // if eof(fp2) but not eof(fp1)
+  {                                       //   return erro 2 => diffrent length
+    errRc = 2  ;                          //                      of files
+    goto _door ;                          //
+  }                                       //
+                                          //
 _door :
   if( cFP != NULL ) fclose( cFP ) ;
   if( lFP != NULL ) fclose( lFP ) ;
@@ -542,9 +551,9 @@ _door :
 }
 
 /******************************************************************************/
-/* count char                                      */
-/*                                                      */
-/*   count char c in string mem            */
+/* count char                                                      */
+/*                                                                  */
+/*   count char c in string mem                        */
 /******************************************************************************/
 int countChar( const char* mem, char c )
 {

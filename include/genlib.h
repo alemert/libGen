@@ -54,7 +54,8 @@ int flushFile(       const char* fName           ) ;
 // ---------------------------------------------------------
 int countWords( const char* str, const int maxOffset ) ;
 char* allocWord( const char* str, const int wordIndex ) ;
-int flashLogLine( char* line) ;
+int flashLogLineId( char* line) ;
+int flashLogLineSrc( char* line) ;
 int diff( const char* file1, const char* file2 ) ;
 int diffLog( const char* lFile, const char* cFile ) ;
 int countChar( const char* mem, char c ) ;
