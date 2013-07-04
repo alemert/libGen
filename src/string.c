@@ -374,6 +374,7 @@ int flashLogLineSrc( char* line)
   if( line[i] != 'c' ) goto _door ; i++ ;  //
   if( line[i] != '/' ) goto _door ; i++ ;  //
                                            //
+  loop = 1 ;                               //
   while( 1 )                               // check for the 
   {                                        //  base source file name
     switch( line[i] )                      //
@@ -381,6 +382,8 @@ int flashLogLineSrc( char* line)
       case ' '  :                          // a function name ends with ()
       {                                    //
         line[i] = ' ' ;                    //
+        i++ ;                              //
+        loop = 0 ;                         //
         break ;                            //
       }                                    //
       case '('  : goto _door ;             // chars not possible in a file name
@@ -394,7 +397,6 @@ int flashLogLineSrc( char* line)
       }                                    //
     }                                      //
   }                                        //
-  i++ ;                                    //
                                            //
   if( line[i] != '(' ) goto _door ; i++ ;  // "(line: "
   if( line[i] != 'l' ) goto _door ; i++ ;  // 
