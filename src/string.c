@@ -5,10 +5,10 @@
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
 /*      - flashLogLineId                                                      */
-/*      - flashLogLineSrc                                      */
+/*      - flashLogLineSrc                                                  */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
-/*      - countChar                                      */
+/*      - countChar                                          */
 /*                                                                            */
 /******************************************************************************/
 
@@ -406,9 +406,10 @@ int flashLogLineSrc( char* line)
   if( line[i] != ' ' ) goto _door ; i++ ;  // 
                                            //
   if( !isdigit(line[i]) ) goto _door ;     //
+  line[i] = ' ' ;                          //
   i++ ;                                    //
                                            //
-  while( !isdigit( line[i] ) )             //
+  while( isdigit( line[i] ) )              //
   {                                        //
     line[i] = ' ' ;                        //
     i++ ;                                  //
