@@ -5,10 +5,10 @@
 /*      - countWords                                                          */
 /*      - allocWord                                                           */
 /*      - flashLogLineId                                                      */
-/*      - flashLogLineSrc                                                  */
+/*      - flashLogLineSrc                                                     */
 /*      - diff                                                                */
 /*      - diffLog                                                             */
-/*      - countChar                                          */
+/*      - countChar                                                           */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,6 +31,7 @@
 /******************************************************************************/
 /*   D E F I N E S                                                            */
 /******************************************************************************/
+#define DUMP_CMNT    "| "
 
 /******************************************************************************/
 /*   M A C R O S                                                              */
@@ -523,7 +524,15 @@ int diffLog( const char* lFile, const char* cFile )
     lTypeSrc = flashLogLineSrc( lBuff ) ; // adjust log file format to spaces, 
     cTypeSrc = flashLogLineSrc( cBuff ) ; //  get the type of file 
                                           //  (log file or not)
-    if( lTypeId  != cTypeId  &&           // compare the type of line in log and 
+    if( memcmp( lBuff, DUMP_CMNT ,        //
+                strlen(DUMP_CMNT)) == 0 &&// check if it is a dump 
+        memcmp( cBuff, DUMP_CMNT ,        //  if so go back to the start of the
+                strlen(DUMP_CMNT)) == 0  )//  loop
+    {                                     //
+      continue ;                          //
+    }                                     //
+                                          //
+    if( lTypeId  != cTypeId  &&           // compare the type of line in log and
         lTypeSrc != cTypeSrc  )           //   compaire file, if not same 
     {                                     //
       errRc = 3  ;                        //   return error
