@@ -1,0 +1,13 @@
+# TEST START findLastBlankStr >>full string         << test/src/t_string_003.c(0050)
+# TEST OK    findLastBlankStr >>full string         << test/src/t_string_003.c(0050)
+# CHECK OK   findLastBlankStr >>                    << test/src/t_string_003.c(0052)
+# TEST START findLastBlankStr >>blank full string   << test/src/t_string_003.c(0064)
+# TEST OK    findLastBlankStr >>blank full string   << test/src/t_string_003.c(0064)
+hello world
+# CHECK OK   findLastBlankStr >>                    << test/src/t_string_003.c(0069)
+# TEST START findLastBlankStr >>empty string        << test/src/t_string_003.c(0081)
+# TEST OK    findLastBlankStr >>empty string        << test/src/t_string_003.c(0081)
+# CHECK OK   findLastBlankStr >>                    << test/src/t_string_003.c(0083)
+# TEST START findLastBlankStr >>blank string        << test/src/t_string_003.c(0095)
+# TEST OK    findLastBlankStr >>blank string        << test/src/t_string_003.c(0095)
+# CHECK OK   findLastBlankStr >>                    << test/src/t_string_003.c(0097)

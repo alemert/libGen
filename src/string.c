@@ -9,6 +9,7 @@
 /*      - diff                                                                */
 /*      - diffLog                                                             */
 /*      - countChar                                                           */
+/*      - findLastBlankStr            */
 /*                                                                            */
 /******************************************************************************/
 
@@ -568,9 +569,9 @@ _door :
 }
 
 /******************************************************************************/
-/* count char                                                      */
-/*                                                                  */
-/*   count char c in string mem                        */
+/* count char                                                                 */
+/*                                                                            */
+/*   count char c in string mem                              */
 /******************************************************************************/
 int countChar( const char* mem, char c )
 {
@@ -586,3 +587,47 @@ int countChar( const char* mem, char c )
   return cnt ;
 }
 
+/******************************************************************************/
+/* find last blank in string                                                  */
+/*                                                                            */
+/*   ignore all leading blanks in string,                                     */
+/*   return pointer to the last non-blank.                                    */
+/*   if first char is non-blank, return NULL                                  */
+/******************************************************************************/
+char* findLastBlankStr( const char* str )
+{
+  char *p = (char*) str ;
+
+  if( ( *str != ' '  && *str != '\t' ) ||
+      *str == '\0'  )
+  {
+    p = NULL;
+    goto _door;
+  }
+
+  while( 1 )
+  {
+    p++;
+    switch( *p )
+    {
+      case ' '  :
+      case '\t' :
+      {
+        continue ;
+      }
+      case '\0' : 
+      {
+        p = NULL;
+        goto _door;
+      }
+      default   : 
+      {
+        p--;
+        goto _door;
+      }
+    }
+  }
+
+  _door:
+  return p;  
+}

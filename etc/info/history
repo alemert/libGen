@@ -2,4 +2,5 @@
 002 fileSize added to file.c
 003 countChar added to string.c
 004 flashLogLineSrc added to string.c
-004 ver 0.0.8.0 dump comment in logDiff
+004 ver 0.0.6 dump comment in logDiff
+004 ver 0.0.10 func findLastBlank added to string.c

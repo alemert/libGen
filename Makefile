@@ -53,7 +53,7 @@ include $(MAKE_INCLUDE_PATH)/general.modules.mk
 
 TEST = t_file_000    t_file_001 \
        t_fork_000       \
-       t_string_000 t_string_001 
+       t_string_000 t_string_001 t_string_002  t_string_003 
 
 include $(MAKE_INCLUDE_PATH)/test.mk
 

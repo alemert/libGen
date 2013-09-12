@@ -27,7 +27,6 @@
 // ---------------------------------------------------------
 #include <tutl.h>
 
-//#include <ctl.h>
 #include <genlib.h>
 
 /******************************************************************************/
@@ -37,17 +36,66 @@ int main( int argc, const char** argv )
 {
   int sysRc = NO_ERROR ;
 
-//sysRc = initLogging( "test/log/t_string_001.log", INF ) ;
+//sysRc = initLogging( "test/log/t_string_002.log", INF ) ;
 //if( sysRc != 0 ) goto _door ;
 
   // -------------------------------------------------------
   // no file found
   // -------------------------------------------------------
-#if(1)
-  doIntTest( "general test"    , \
-              8                 , \
-              countChar         , \
-             " = = = ==b=...=all=", '=' ) ;
+  #if(1)
+  {
+    doPointTest( "full string"      , \
+                 RC_IS_NULL         , \
+                  findLastBlankStr  , \
+                  "hello world"     ) ;
+
+    checkMessage( TEST_OK_TXT, findLastBlankStr ) ;
+  }
+#endif
+
+  // -------------------------------------------------------
+  // no file found
+  // -------------------------------------------------------
+  #if(1)
+  {
+    doPointTest( "blank full string"      , \
+                 RC_NOT_NULL         , \
+                  findLastBlankStr  , \
+                  "  hello world"     ) ;
+
+    char* result = (char*) gRcVoidPointer ;
+    printf( "%s\n", (result+1) );
+
+    checkMessage( TEST_OK_TXT, findLastBlankStr ) ;
+  }
+#endif
+
+  // -------------------------------------------------------
+  // no file found
+  // -------------------------------------------------------
+  #if(1)
+  {
+    doPointTest( "empty string"      , 
+                 RC_IS_NULL         , 
+                  findLastBlankStr  , 
+                  ""     ) ;
+
+    checkMessage( TEST_OK_TXT, findLastBlankStr ) ;
+  }
+#endif
+
+  // -------------------------------------------------------
+  // no file found
+  // -------------------------------------------------------
+  #if(1)
+  {
+    doPointTest( "blank string"      , \
+                 RC_IS_NULL         , \
+                  findLastBlankStr  , \
+                  "      "     ) ;
+
+    checkMessage( TEST_OK_TXT, findLastBlankStr ) ;
+  }
 #endif
 
 _door:
