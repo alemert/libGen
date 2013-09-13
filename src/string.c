@@ -9,7 +9,8 @@
 /*      - diff                                                                */
 /*      - diffLog                                                             */
 /*      - countChar                                                           */
-/*      - findLastBlankStr            */
+/*      - findLastBlankStr                  */
+/*      - findLastNonBlankStr              */
 /*                                                                            */
 /******************************************************************************/
 
@@ -630,4 +631,67 @@ char* findLastBlankStr( const char* str )
 
   _door:
   return p;  
+}
+
+/******************************************************************************/
+/* find last non-blank in string                                              */
+/*                                                                            */
+/*   find the end of the string, go backwards to the last non-blank.          */
+/*   if strinng empty return NULL                                             */
+/*   if last char is non-blank return NULL, this functionality is needed      */
+/*    by libXym                                                               */
+/******************************************************************************/
+char* findLastNonBlankStr( const char* str )
+{
+  char *p = (char*) str ;
+  
+  if( p  == NULL ||             // check for initial values
+      *p == '\0'  )             // return NULL for empty string
+  {                             //
+    p = NULL;                   //
+    goto _door;                 //
+  }                             //
+                                //
+  while( *p != '\0' )           // goto to the end of the string
+  {                             //
+    p++ ;                       //
+  }                             //
+                                //
+  p--;                          //
+  switch( *p )                  // check if the last char of the string 
+  {                             //
+    case ' ' : break ;          //  is a blank
+    case '\t': break ;          //
+    default  :                  //
+    {                           //
+      p = NULL;                 // if not return NULL
+      goto _door;               //
+    }                           //
+  }                             //
+                                //
+  while( p != str )             // go backwards until start of string
+  {                             //
+    switch( *p )                //
+    {                           //
+      case ' ' :                //
+      case '\t':                //
+      {                         //
+        p--;                    //
+        break;                  //
+      }                         //
+      default :                 // no-blank found
+      {                         //
+        goto _door;             //
+      }                         //
+    }                           //
+  }                             //
+                                //
+  if( p == str )                // complete string is non-blank 
+  {                             //
+    p = NULL;                   //
+    goto _door;                 //
+  }                             //
+                                //
+  _door:
+  return p;
 }
