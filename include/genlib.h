@@ -11,6 +11,7 @@
 // ---------------------------------------------------------
 #include <stdio.h>
 #include <errno.h>
+#include <libgen.h>
 
 // ---------------------------------------------------------
 // own 
@@ -45,9 +46,10 @@
 // ---------------------------------------------------------
 // file.c
 // ---------------------------------------------------------
-int checkFileRights( const char* fName, int mode ) ;
-long fileSize(       const char* fName           ) ;
-int flushFile(       const char* fName           ) ;
+int checkFileRights( const char* fName, int mode    ) ;
+long fileSize(       const char* fName              ) ;
+int flushFile(       const char* fName              ) ;
+int mkdirRecursive( const char *dir, mode_t mode );
 
 // ---------------------------------------------------------
 // string.c

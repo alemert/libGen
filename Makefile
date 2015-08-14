@@ -55,7 +55,7 @@ cleanlocal :
 #
 # ------------------------------------------------------------------------------
 
-TEST = t_file_000    t_file_001 \
+TEST = t_file_000   t_file_001   t_file_002   \
        t_fork_000       \
        t_string_000 t_string_001 t_string_002 t_string_003  t_string_004 
 

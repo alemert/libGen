@@ -16,8 +16,6 @@
 // system
 // ---------------------------------------------------------
 #include <unistd.h>
-#include <dirent.h>
-#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -89,7 +87,7 @@ _door :
 }
 
 /******************************************************************************/
-/* flush the file                                                             */
+/* flus the file                                                              */
 /*                                                                            */
 /*   equal to >>fileName                                                      */
 /******************************************************************************/
@@ -101,9 +99,9 @@ int flushFile( const char* fName )
   sysRc = checkFileWrite( fName ) ;  // check if file can be rewriten
   if( sysRc != 0 )                   // if not return errno from func
   {                              //
-    sysRc = errno ;                   //
-    goto _door ;                    //
-  }                                //
+    sysRc = errno ;            //
+    goto _door ;                  //
+  }                              //
                                      //
   fp = fopen( fName, "w" ) ;         // open file 
   if( fp == NULL )                   // if error return errno from func
@@ -121,56 +119,4 @@ int flushFile( const char* fName )
                                      //
 _door :
   return sysRc ;
-}
-
-/******************************************************************************/
-/*   make recursive directory              */
-/******************************************************************************/
-int mkdirRecursive( const char *dir, mode_t mode )
-{
-  int sysRc = 0 ;
-  char subDir[NAME_MAX];
-  
-  if( dir == NULL ) goto _door;
-
-  sysRc = mkdir( dir, 0775 );                  // create goal directory 
-  if( sysRc == -1 )                                 //
-  {                                                //
-    switch( errno )
-    {
-      case EEXIST: 
-      {
-        errno = 0;
-	sysRc = 0;
-	goto _door;
-      }
-      case ENOENT:
-      {
-        errno = 0;
-	strcpy(subDir,dir);
-	sysRc = mkdirRecursive( dirname((char*) subDir), mode );
-        if( sysRc == -1 )
-	{
-	  sysRc = errno ;
-          goto _door;
-	}
-        sysRc = mkdirRecursive( dir, mode );
-        if( sysRc == -1 )
-        {
-	  sysRc = errno ;
-          goto _door;
-        }
-	default :
-        {
-	  sysRc = errno ;
-          goto _door;
-
-        }
-      }
-    }
-  }                                                //
-
-  _door:
-
-  return sysRc;
 }

@@ -4,8 +4,7 @@
 /* testing file : file.c                                                      */
 /*                                                                            */
 /* testing functions :                                       */
-/*   - flushFile                                                              */
-/*   - fileSize                                                               */
+/*   - mkdirRecrusive                                        */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,6 +31,7 @@
 #endif
 
 #include <genlib.h>
+#include <limits.h>
 
 /******************************************************************************/
 /*   M A I N                                                                  */
@@ -43,12 +43,33 @@ int main( )
   // -------------------------------------------------------
   // flush not existing file
   // -------------------------------------------------------
+  doIntTest( "empty path"   , \
+          0                 , \
+          mkdirRecursive    , \
+          NULL, 0           ) ;
 #if(1)
-  doIntTest( "file does not exists"     , \
-          22                            , \
-          flushFile                    , \
-          "test/cfg/not.exists"           ) ;
+  doIntTest( "existing path", \
+          0                 , \
+          mkdirRecursive    , \
+          "/tmp", 0           ) ;
+#endif
+  int pid = getpid() ;
+  char path[NAME_MAX] ;
+  sprintf(path,"/tmp/%d",pid);
+  
 
+  doIntTest( "single path", \
+          0                 , \
+          mkdirRecursive    , \
+          path, 755           ) ;
+
+  sprintf(path,"/tmp/%d/%d",--pid,pid);
+
+  doIntTest( "double path", \
+          0                 , \
+          mkdirRecursive    , \
+          path, 755           ) ;
+#if(0)
   // -------------------------------------------------------
   // flush no writing rights file
   // -------------------------------------------------------
@@ -73,37 +94,6 @@ int main( )
           flushFile                 , \
           "test/cfg/flushed.file"   ) ;
 #endif
-
-  // -------------------------------------------------------
-  // get size of not existing file
-  // -------------------------------------------------------
-#if(1)
-  doIntTest( "file not exists"    , \
-          -2                      , \
-          fileSize                , \
-          "test/cfg/not.exists"   ) ;
-#endif
-
-  // -------------------------------------------------------
-  // get size of not existing file
-  // -------------------------------------------------------
-#if(1)
-  doIntTest( "empty file"         , \
-           0                      , \
-          fileSize                , \
-          "test/cfg/flushed.file"   ) ;
-#endif
-
-  // -------------------------------------------------------
-  // get size of some file
-  // -------------------------------------------------------
-#if(1)
-  doIntTest( "some file"             , \
-           5184                      , \
-           fileSize                  , \
-          "test/cfg/t_file_long.txt" ) ;
-#endif
-
 
 _door:
   return sysRc ;
