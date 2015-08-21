@@ -149,22 +149,19 @@ int mkdirRecursive( const char *dir, mode_t mode )
         errno = 0;
 	strcpy(subDir,dir);
 	sysRc = mkdirRecursive( dirname((char*) subDir), mode );
-        if( sysRc == -1 )
+        if( sysRc != 0 )
 	{
-	  sysRc = errno ;
           goto _door;
 	}
         sysRc = mkdirRecursive( dir, mode );
-        if( sysRc == -1 )
+        if( sysRc != 0 )
         {
-	  sysRc = errno ;
           goto _door;
         }
 	default :
         {
 	  sysRc = errno ;
           goto _door;
-
         }
       }
     }

@@ -5,3 +5,4 @@
 005 ver 0.0.6 dump comment in logDiff
 006 ver 0.0.10 func findLastBlank added to string.c
 007 ver 0.0.11 func mkdirRecursive added to file.c
+008 ver 0.0.12 fixing mkdirRecrusive
