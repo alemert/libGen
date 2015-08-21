@@ -156,6 +156,8 @@ int mkdirRecursive( const char *dir, mode_t mode )
         sysRc = mkdir( dir, 0775 );                  // create goal directory 
         if( sysRc != 0 )
         {
+	  sysRc = errno;
+          errno = 0 ;
           goto _door;
         }
 	default :
