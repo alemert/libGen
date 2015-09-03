@@ -42,6 +42,22 @@
 
 /******************************************************************************/
 /*   fork and exec process                                                    */
+/*                                                                            */
+/*    description:                                                            */
+/*      fork process and start program with command line arguments            */
+/*                                                                            */
+/*    attributes:                                                             */
+/*      prg   process name shown in process list                              */
+/*      stdOutFp write file descriptor to redirect STDOUT                     */
+/*      stdErrFp write file descriptor to redirect STDERR                     */
+/*      cmdLn    command line attributes                                      */
+/*                 first command line attribute is the program name,          */
+/*                 prg is just the name that is shown in the process list     */
+/*                                                                            */
+/*    return code:                                                            */
+/*      0  - OK                                                               */
+/*      >0 - general error code >0 or errno                                   */
+/*                                                                            */
 /******************************************************************************/
 int startChild( const char *prg, FILE *stdOutFp ,
                                  FILE *stdErrFp ,
