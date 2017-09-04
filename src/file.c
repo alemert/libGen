@@ -100,10 +100,10 @@ int flushFile( const char* fName )
 
   sysRc = checkFileWrite( fName ) ;  // check if file can be rewriten
   if( sysRc != 0 )                   // if not return errno from func
-  {                              //
-    sysRc = errno ;                   //
-    goto _door ;                    //
-  }                                //
+  {                                  //
+    sysRc = errno ;                  //
+    goto _door ;                     //
+  }                                  //
                                      //
   fp = fopen( fName, "w" ) ;         // open file 
   if( fp == NULL )                   // if error return errno from func
@@ -133,40 +133,40 @@ int mkdirRecursive( const char *dir, mode_t mode )
   
   if( dir == NULL ) goto _door;
 
-  sysRc = mkdir( dir, 0775 );                  // create goal directory 
-  if( sysRc == -1 )                                 //
-  {                                                //
-    switch( errno )
-    {
-      case EEXIST: 
-      {
-        errno = 0;
-	sysRc = 0;
-	goto _door;
-      }
-      case ENOENT:
-      {
-        errno = 0;
-	strcpy(subDir,dir);
+  sysRc = mkdir( dir, 0775 );          // create goal directory 
+  if( sysRc == -1 )                    // create directory failed
+  {                                    //
+    switch( errno )                    //
+    {                                  //
+      case EEXIST:                     // directory already exists
+      {                                // which is no error
+        errno = 0;                     // set return code to ok
+	sysRc = 0;                     //
+	goto _door;                    //
+      }                                //
+      case ENOENT:                     // parent directory doesn't exists
+      {                                // which is not an error
+        errno = 0;                     // if the parent can be created
+	strcpy(subDir,dir);            // parent directory name
 	sysRc = mkdirRecursive( dirname((char*) subDir), mode );
-        if( sysRc == 0 )
-	{
-          sysRc = mkdir( dir, 0775 );                  // create goal directory 
-          if( sysRc != 0 )
-          {
-            sysRc = errno;
-            errno = 0 ;
-          }
-          goto _door;
-        }
-	default :
-        {
-	  sysRc = errno ;
-          goto _door;
-        }
-      }
-    }
-  }                                                //
+        if( sysRc == 0 )               // creating parent directory succeeded 
+	{                              //
+          sysRc = mkdir( dir, 0775 );  // create child (this*) directory 
+          if( sysRc != 0 )             // failure is an error
+          {                            //
+            sysRc = errno;             // return code is errno
+            errno = 0    ;             //
+          }                            //
+          goto _door;                  //
+        }                              //
+	default :                      // creating directory failed because of:
+        {                              //  EACCES, EFAULT, ENOSPC etc.
+	  sysRc = errno ;              // it's a real error
+          goto _door;                  //
+        }                              //
+      }                                //
+    }                                  //
+  }                                    //
 
   _door:
 
