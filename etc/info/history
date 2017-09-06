@@ -6,3 +6,4 @@
 006 ver 0.0.10 func findLastBlank added to string.c
 007 ver 0.0.11 func mkdirRecursive added to file.c
 008 ver 0.0.12 fixing mkdirRecrusive
+ver 1.0.0 install path /opt/mqm/tools
