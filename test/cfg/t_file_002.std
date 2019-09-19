@@ -1,8 +1,0 @@
-# TEST START mkdirRecursive >>empty path          << test/src/t_file_002.c(0049)
-# TEST OK    mkdirRecursive >>empty path          << test/src/t_file_002.c(0049)
-# TEST START mkdirRecursive >>existing path       << test/src/t_file_002.c(0054)
-# TEST OK    mkdirRecursive >>existing path       << test/src/t_file_002.c(0054)
-# TEST START mkdirRecursive >>single path         << test/src/t_file_002.c(0064)
-# TEST OK    mkdirRecursive >>single path         << test/src/t_file_002.c(0064)
-# TEST START mkdirRecursive >>double path         << test/src/t_file_002.c(0071)
-# TEST OK    mkdirRecursive >>double path         << test/src/t_file_002.c(0071)

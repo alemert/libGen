@@ -1,9 +1,0 @@
-001 flushFile added to file.c
-002 fileSize added to file.c
-003 countChar added to string.c
-004 flashLogLineSrc added to string.c
-005 ver 0.0.6 dump comment in logDiff
-006 ver 0.0.10 func findLastBlank added to string.c
-007 ver 0.0.11 func mkdirRecursive added to file.c
-008 ver 0.0.12 fixing mkdirRecrusive
-ver 1.0.0 install path /opt/mqm/tools

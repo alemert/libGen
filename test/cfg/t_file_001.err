@@ -1,3 +1,0 @@
-test/cfg/not.exists: No such file or directory
-test/cfg/no_writting.right: Permission denied
-test/cfg/no_writing.dir: Permission denied
